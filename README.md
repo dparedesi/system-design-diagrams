@@ -6,8 +6,8 @@ A curated collection of system design diagrams to aid in understanding various a
 
 | No. | System Name          | Description                         | Diagram Link |
 |-----|----------------------|-------------------------------------|--------------|
-| 1   | Real-time audio transcriptions   | Convert audio streams to text in real-time | [View Diagram](diagrams/real-time-audio-transcriptions.png) |
-| 2   | Peer-to-Peer System  | Design of a decentralized network   | [View Diagram](diagrams/p2p-system.png)         |
+| 1   | URL shortener  | Design of an URL shortener   | [View Diagram](diagrams/URL-shortener.png)         |
+| 2   | Real-time audio transcriptions   | Convert audio streams to text in real-time | [View Diagram](diagrams/real-time-audio-transcriptions.png) |
 | ... | ...                  | ...                                 | ...          |
 
 ## Detailed Descriptions
@@ -19,7 +19,9 @@ A curated collection of system design diagrams to aid in understanding various a
 
   **Problem:**
 
-  Users require immediate, low-latency conversion of live audio streams into text for interactive applications (e.g., live captioning, voice commands, meeting transcription). Traditional batch processing cannot provide the necessary real-time feedback. This solution offers a scalable, cloud-native way to handle many simultaneous audio streams for instant transcription.
+  The initial primary goal is to provide real-time transcription for business meetings and conference calls, primarily targeting enterprise users integrated into existing collaboration platforms. Think Zoom, Chime, Teams integrations. When we say "real-time," we mean perceived real-time. The transcribed text for a spoken phrase should appear within 1-2 seconds after the phrase is uttered. It needs to feel interactive. Sub-second would be ideal, but let's target 1-2 seconds as the P99 latency.
+  
+  For input sources, let's focus initially on live audio streams coming from microphones via web clients or potentially directly from VoIP systems via SIP/RTP streams pushed to our service. Assume standard formats like PCM audio streamed chunk by chunk. Handling pre-recorded files is a secondary goal for now. The output should be the transcribed text, associated with start and end timestamps for each word or logical phrase. Multi-language support is on the roadmap, but let's assume English only for V1 to keep the scope manageable.
   
   **Functional Requiremnets:**
 
@@ -54,6 +56,46 @@ A curated collection of system design diagrams to aid in understanding various a
     *   This architecture uses **Amazon DynamoDB** for storing connection IDs and session status.
     *   **Chosen For:** Excellent scalability for high-volume key-value lookups/updates (getting/updating connection/session info), serverless operation (no instances to manage), flexible schema, and pay-per-request pricing aligns well with the event-driven nature.
     *   **Trade-off Accepted:** DynamoDB is less suited for complex relational queries or multi-item transactions compared to RDS. RDS was deemed overkill and operationally heavier for the simple state management required here.
+
+</details>
+
+### URL shortener service
+
+<details>
+  <summary>Click to expand detailed description</summary>
+
+  **Problem:**
+
+  We're going to tackle a familiar problem. The task is to design a URL shortener service open to the public.
+  
+  **Functional Requiremnets:**
+
+  - URL Shortening: Allows users (via API) to submit a long URL and receive a unique, corresponding short URL.
+  - URL Redirection: Redirects users accessing a generated short URL (GET /{short_id}) to the original long URL using an HTTP 301/302 status code.
+  - Programmatic API Access: Provides a RESTful HTTP API endpoint (POST /urls) for clients to integrate the shortening functionality.
+  - Unique ID Generation: Ensures that each generated short URL identifier (short_id) is unique.
+  - Idempotent Shortening: Handles duplicate submission requests (e.g., client retries) for the same shortening operation gracefully without creating multiple entries (assuming correct implementation of the idempotency check).
+
+  **Non-Functional Requirements:**
+
+  - **High Availability:** Designed for high availability (e.g., 99.99% target) through multi-region deployment architecture.
+  - **High Scalability (Reads):** Read path (redirections) is designed to handle very high traffic volumes.
+  - **High Scalability (Writes):** Write path (shortening) is designed to handle high traffic volumes.
+  - **Low-Latency Redirections:** Aims for low user-perceived latency for URL redirections (e.g., target p99 < 100ms).
+  - **Low-Latency Shortening:** Aims for low latency for the API call to shorten a URL (e.g., target p99 < 500ms).
+  - **Eventual Consistency:** Newly shortened URLs will become available for redirection globally after a short propagation delay (typically seconds).
+  - **Durability:** Ensures that stored URL mappings are highly durable and protected against data loss.
+  - **Security:** Provides protection against common web attacks and unauthorized access patterns.
+  - **Operational Efficiency:** Leverages managed services to reduce the operational burden of scaling, patching, and maintenance.
+
+  ![View Diagram](diagrams/URL-shortener.png)
+
+  - Database (DynamoDB vs. RDS): Chose DynamoDB for superior key-value scalability & latency over SQL features & complex queries.
+  - Read Compute (Fargate vs. Lambda): Chose Fargate for more consistent low latency on high-volume reads, trading off Lambda's simplicity.
+  - Write Compute (Lambda vs. Fargate): Chose Lambda for operational simplicity & cost-effectiveness on lower-volume writes, as strict latency is less critical.
+  - ID Generation (Decoupled vs. Sync): Chose Decoupled Pool for better write performance & resilience at scale, accepting more architectural components.
+  - Caching (ElastiCache vs. None): Added ElastiCache for drastically improved read speed & reduced DB load/cost, accepting cache infrastructure cost.
+  - Deployment (Multi-Region vs. Single): Chose Multi-Region for High Availability & global low latency, accepting higher complexity & cost.
 
 </details>
 
