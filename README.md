@@ -6,7 +6,7 @@ A curated collection of system design diagrams to aid in understanding various a
 
 | No. | System Name          | Description                         | Diagram Link |
 |-----|----------------------|-------------------------------------|--------------|
-| 1   | E-commerce Website   | Overview of an online retail system | [View Diagram](diagrams/e-commerce-website.png) |
+| 1   | Real-time audio transcriptions   | - | [View Diagram](diagrams/real-time-audio-transcriptions.png) |
 | 2   | Peer-to-Peer System  | Design of a decentralized network   | [View Diagram](diagrams/p2p-system.png)         |
 | ... | ...                  | ...                                 | ...          |
 
@@ -14,9 +14,6 @@ A curated collection of system design diagrams to aid in understanding various a
 
 For in-depth explanations of each system design, refer to the corresponding Markdown files in the [descriptions](descriptions/) folder.
 
-## Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to add new diagrams and descriptions.
 
 ## License
 
