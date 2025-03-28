@@ -17,8 +17,6 @@ A curated collection of system design diagrams to aid in understanding various a
 <details>
   <summary>Click to expand detailed description</summary>
 
-  ![View Diagram](diagrams/real-time-audio-transcriptions.png)
-
   **Problem:**
 
   Users require immediate, low-latency conversion of live audio streams into text for interactive applications (e.g., live captioning, voice commands, meeting transcription). Traditional batch processing cannot provide the necessary real-time feedback. This solution offers a scalable, cloud-native way to handle many simultaneous audio streams for instant transcription.
@@ -45,6 +43,8 @@ A curated collection of system design diagrams to aid in understanding various a
   - **Reliability:** Ensure accurate transcription delivery and persistent storage of final transcripts.
   - **Maintainability:** The architecture should be modular and utilize managed services to reduce operational burden.
   - **Security:** Implement appropriate security measures for the WebSocket API endpoint and grant least privilege access via IAM roles.
+
+  ![View Diagram](diagrams/real-time-audio-transcriptions.png)
 
   - **Compute (AWS Lambda vs. Containers - Fargate/ECS/EKS):**
     *   This architecture uses **AWS Lambda** for compute (handling WebSocket events and interacting with Transcribe/DynamoDB/S3).
