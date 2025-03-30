@@ -9,7 +9,7 @@ A curated collection of system design diagrams to aid in understanding various a
 | 1   | URL shortener                           | Design of an URL shortener                    | [View Diagram](diagrams/URL-shortener.png)                  |
 | 2   | Real-time audio transcriptions          | Convert audio streams to text in real-time    | [View Diagram](diagrams/real-time-audio-transcriptions.png) |
 | 3   | Booking Mgmt. System                    | Design a booking mgmt. system                 | [View Diagram](diagrams/booking-system.png)                 |
-| 4   | Scalable e-commerce platform            | Design an e-commerce platform                 | [View Diagram](diagrams/scalable-e-commerce platform.png)                 |
+| 4   | Scalable e-commerce platform            | Design an e-commerce platform                 | [View Diagram](diagrams/scalable-e-commerce-platform.png)                 |
 
 
 ## License
