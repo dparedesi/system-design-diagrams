@@ -12,6 +12,7 @@ A curated collection of system design diagrams to aid in understanding various a
 | 4   | Scalable e-commerce platform            | Design an e-commerce platform                 | [View Diagram](diagrams/scalable-e-commerce-platform.png)     |
 | 5   | Traffic light control                   | Design a traffic light control system         | [View Diagram](diagrams/traffic-light-control-system.png)     |
 | 6   | Search auto-complete feature            | Design a search auto-complete feature for an e-commerce business | [View Diagram](diagrams/search-autocomplete-feature.png)|
+| 7   | Parking lot system                      | Design a parking lot system                   | [View Diagram](diagrams/parking-lot-system.png)     |
 
 ## License
 
