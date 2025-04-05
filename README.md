@@ -13,7 +13,8 @@ A curated collection of system design diagrams to aid in understanding various a
 | 5   | Traffic light control                   | Design a traffic light control system         | [View Diagram](diagrams/traffic-light-control-system.png)     |
 | 6   | Search auto-complete feature            | Design a search auto-complete feature for an e-commerce business | [View Diagram](diagrams/search-autocomplete-feature.png)|
 | 7   | Parking lot system                      | Design a parking lot system                   | [View Diagram](diagrams/parking-lot-system.png)     |
-| 8   | Design a Web Crawler                    | Design a web crawler                          | [View Diagram](diagrams/web-crawler.png)     |
+| 8   | Web Crawler                             | Design a web crawler                          | [View Diagram](diagrams/web-crawler.png)     |
+| 9   | Warehouse inventory system              | Design a Warehouse inventory system           | [View Diagram](diagrams/warehouse-inventory-system.png)     |
 
 ## License
 
